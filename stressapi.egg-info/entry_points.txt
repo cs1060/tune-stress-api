@@ -1,0 +1,3 @@
+[console_scripts]
+stressapi = stressapi.cli.main:app
+
