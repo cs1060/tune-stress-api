@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressAPI Reporter Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold">StressAPI Reporter</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Test Run Selection -->
+        <div class="bg-white shadow rounded-lg p-4 mb-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-medium">Test Run</h2>
+                <select id="testRunSelect" class="border rounded p-2" onchange="loadTestRun()">
+                    <option value="">Select a test run...</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="text-lg font-medium mb-2">Request Stats</h3>
+                <div id="requestStats" class="space-y-2">
+                    <p>Total Requests: <span id="totalRequests">-</span></p>
+                    <p>Success Rate: <span id="successRate">-</span></p>
+                    <p>Avg Response Time: <span id="avgResponseTime">-</span> ms</p>
+                </div>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="text-lg font-medium mb-2">Performance</h3>
+                <div id="performanceStats" class="space-y-2">
+                    <p>P50 Response Time: <span id="p50">-</span> ms</p>
+                    <p>P90 Response Time: <span id="p90">-</span> ms</p>
+                    <p>P99 Response Time: <span id="p99">-</span> ms</p>
+                </div>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="text-lg font-medium mb-2">Resources</h3>
+                <div id="resourceStats" class="space-y-2">
+                    <p>Avg CPU Usage: <span id="avgCpu">-</span>%</p>
+                    <p>Avg Memory Usage: <span id="avgMemory">-</span> MB</p>
+                    <p>Test Duration: <span id="duration">-</span> s</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="text-lg font-medium mb-2">Response Time Distribution</h3>
+                <div id="responseTimeDistribution"></div>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="text-lg font-medium mb-2">Error Rate Over Time</h3>
+                <div id="errorRateGraph"></div>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4 md:col-span-2">
+                <h3 class="text-lg font-medium mb-2">Resource Usage</h3>
+                <div id="resourceUsageGraph"></div>
+            </div>
+        </div>
+
+        <!-- Export Options -->
+        <div class="bg-white shadow rounded-lg p-4 mt-6">
+            <h3 class="text-lg font-medium mb-4">Export Report</h3>
+            <div class="flex space-x-4">
+                <button onclick="exportReport('json')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Export as JSON
+                </button>
+                <button onclick="exportReport('csv')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Export as CSV
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
