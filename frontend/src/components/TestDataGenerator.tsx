@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Typography,
-  CircularProgress,
-} from '@mui/material';
-import ReactJson from '@microlink/react-json-view';
+import { motion } from 'framer-motion';
 import { EndpointInfo, GeneratedTestData } from '../types';
 import axios from 'axios';
 
 interface TestDataGeneratorProps {
   endpoint: EndpointInfo;
+  onClose: () => void;
 }
 
-export const TestDataGenerator: React.FC<TestDataGeneratorProps> = ({ endpoint }) => {
-  const [generatedData, setGeneratedData] = useState<GeneratedTestData | null>(null);
+export const TestDataGenerator: React.FC<TestDataGeneratorProps> = ({
+  endpoint,
+  onClose,
+}) => {
   const [loading, setLoading] = useState(false);
+  const [testData, setTestData] = useState<GeneratedTestData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const generateTestData = async () => {
@@ -27,11 +22,9 @@ export const TestDataGenerator: React.FC<TestDataGeneratorProps> = ({ endpoint }
 
     try {
       const response = await axios.post('http://localhost:8000/generate-test-data', {
-        endpoint_path: endpoint.path,
-        method: endpoint.method,
+        endpoint: endpoint,
       });
-
-      setGeneratedData(response.data);
+      setTestData(response.data);
     } catch (err) {
       setError('Failed to generate test data. Please try again.');
       console.error('Error generating test data:', err);
@@ -41,48 +34,56 @@ export const TestDataGenerator: React.FC<TestDataGeneratorProps> = ({ endpoint }
   };
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Test Data Generator
-        </Typography>
-        
-        <Box mb={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Endpoint: {endpoint.method} {endpoint.path}
-          </Typography>
-        </Box>
+    <div className="bg-white dark:bg-apple-gray-800 rounded-apple-lg shadow-apple p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-apple-gray-900 dark:text-white text-lg font-semibold">
+          Generate Test Data
+        </h2>
+        <button
+          onClick={onClose}
+          className="text-apple-gray-500 hover:text-apple-gray-700 dark:text-apple-gray-400 dark:hover:text-apple-gray-200"
+        >
+          ✕
+        </button>
+      </div>
 
-        <Button
-          variant="contained"
-          color="primary"
+      <div className="space-y-4">
+        <div className="bg-apple-gray-100 dark:bg-apple-gray-900 rounded-apple p-4">
+          <div className="text-sm text-apple-gray-500 dark:text-apple-gray-400 mb-2">
+            Endpoint
+          </div>
+          <div className="flex items-center space-x-3">
+            <span className="bg-apple-blue text-white px-3 py-1 rounded-apple text-sm font-medium">
+              {endpoint.method}
+            </span>
+            <span className="text-apple-gray-900 dark:text-white font-medium">
+              {endpoint.path}
+            </span>
+          </div>
+        </div>
+
+        <button
           onClick={generateTestData}
           disabled={loading}
+          className="w-full bg-apple-blue text-white py-2 rounded-apple font-medium hover:opacity-90 disabled:opacity-50"
         >
-          {loading ? <CircularProgress size={24} /> : 'Generate Test Data'}
-        </Button>
+          {loading ? 'Generating...' : 'Generate Test Data'}
+        </button>
 
         {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
+          <div className="text-apple-red text-sm mt-2">{error}</div>
         )}
 
-        {generatedData && (
-          <Box mt={3}>
-            <Typography variant="subtitle1" gutterBottom>
-              Generated Test Data:
-            </Typography>
-            <ReactJson
-              src={generatedData}
-              theme="monokai"
-              enableClipboard={false}
-              displayDataTypes={false}
-              name={false}
-            />
-          </Box>
+        {testData && (
+          <div className="mt-4">
+            <div className="bg-apple-gray-100 dark:bg-apple-gray-900 rounded-apple p-4 overflow-auto">
+              <pre className="text-sm text-apple-gray-900 dark:text-white">
+                {JSON.stringify(testData, null, 2)}
+              </pre>
+            </div>
+          </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

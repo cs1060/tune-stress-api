@@ -12,6 +12,7 @@ export interface EndpointInfo {
   parameters: EndpointParameter[];
   request_body?: any;
   response_schema?: any;
+  description?: string;
 }
 
 export interface GeneratedTestData {
