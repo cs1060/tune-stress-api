@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StressAPI - High-Performance Load Testing for FastAPI</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">StressAPI</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#usage">Usage</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Stress-Test Your FastAPI with Ease</h1>
+            <p>Professional-grade load testing tool designed specifically for FastAPI applications</p>
+            <button id="startTest" class="cta-button">Run a Test Now</button>
+        </section>
+
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Load Testing</h3>
+                    <p>Generate realistic traffic patterns to simulate real-world scenarios</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Performance Metrics</h3>
+                    <p>Detailed insights into response times, throughput, and error rates</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Bottleneck Detection</h3>
+                    <p>Identify performance bottlenecks before they impact production</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="usage">
+            <h2>How to Use StressAPI</h2>
+            <pre><code>
+const test = await fetch('/api/test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        url: 'https://api.example.com/endpoint',
+        pattern: 'sequential',
+        duration: 60,
+        requestsPerSecond: 100
+    })
+});
+
+const results = await test.json();
+            </code></pre>
+        </section>
+
+        <section id="testimonials">
+            <h2>What Users Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"StressAPI helped us identify critical performance issues before our launch."</p>
+                    <cite>- Sarah Chen, Tech Lead</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The real-time monitoring feature is a game-changer for our CI/CD pipeline."</p>
+                    <cite>- Mike Johnson, DevOps Engineer</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <details>
+                    <summary>How does StressAPI compare to other load testing tools?</summary>
+                    <p>StressAPI is specifically optimized for FastAPI applications, providing more accurate and relevant metrics.</p>
+                </details>
+                <details>
+                    <summary>Can I integrate StressAPI with my CI/CD pipeline?</summary>
+                    <p>Yes, StressAPI provides a simple API that can be easily integrated with any CI/CD tool.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 StressAPI. All rights reserved.</p>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>
