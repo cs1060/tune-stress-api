@@ -2,8 +2,6 @@
 
 A modern, responsive dashboard for visualizing performance metrics from StressAPI load tests. Built with React, TypeScript, and Tailwind CSS, this dashboard provides real-time insights into API performance through interactive charts and detailed metrics.
 
-![Dashboard Preview](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000)
-
 ## Features
 
 - 📊 Real-time performance metrics visualization
